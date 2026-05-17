@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System</title>
+    
+</head>
+<body>
+    <!-- Admin Dashboard (Initially hidden) -->
+    <div id="admin-dashboard" style="display: none;">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Dashboard</h3>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="active" onclick="showSection('admin-home')"><i>🏠</i> Home</a>
+                <a href="#" onclick="showSection('view-students')"><i>👨‍🎓</i> View Students</a>
+                <a href="#" onclick="showSection('upload-books')"><i>📤</i> Upload Books</a>
+                <a href="#" onclick="showSection('view-books')"><i>📚</i> View Books</a>
+                <a href="#" onclick="showSection('view-requests')"><i>🔔</i> View Requests</a>
+                <a href="#" onclick="showSection('change-password')"><i>🔒</i> Change Password</a>
+                <a href="#" onclick="logout()"><i>🚪</i> Logout</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h2>Library Management System</h2>
+                <div class="user-info">
+                    <span>Welcome, Admin</span>
+                </div>
+            </div>
+
+            <!-- Admin Home -->
+            <div id="admin-home" class="content-section active">
+                <div class="card">
+                    <h3>Admin Dashboard Overview</h3>
+                    <p>Welcome to the Library Management System Admin Panel. From here you can manage all aspects of the library.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 20px;">
+                        <div class="card" style="flex: 1; text-align: center;">
+                            <h4>Total Books</h4>
+                            <p style="font-size: 2rem;">124</p>
+                        </div>
+                        <div class="card" style="flex: 1; text-align: center;">
+                            <h4>Registered Students</h4>
+                            <p style="font-size: 2rem;">86</p>
+                        </div>
+                        <div class="card" style="flex: 1; text-align: center;">
+                            <h4>Pending Requests</h4>
+                            <p style="font-size: 2rem;">5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Students -->
+            <div id="view-students" class="content-section">
+                <div class="card">
+                    <h3>Registered Students</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Books Borrowed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S1001</td>
+                                <td>Ciro Ezra Dagdag</td>
+                                <td>ezra@cvsu.edu.ph</td>
+                                <td>Information Technology</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>S1002</td>
+                                <td>Edd Gabriel E. Badilla</td>
+                                <td>edd@cvsu.edu.ph</td>
+                                <td>Literature</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>S1003</td>
+                                <td>Christian T. Delos Reyes</td>
+                                <td>christian@cvsu.edu.ph</td>
+                                <td>Criminilogy</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>S1004</td>
+                                <td>Marzel Calonge</td>
+                                <td>calonge@cvsu.edu.ph</td>
+                                <td>Computer Science</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>S1005</td>
+                                <td>Luigi Andrei Gordvilla </td>
+                                <td>Andrei@cvsu.edu.ph</td>
+                                <td>Educ (Math Major)</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>S1006</td>
+                                <td>Mark Anthony Cristobal</td>
+                                <td>Cristobal@cvsu.edu.ph</td>
+                                <td>Hospitality Management</td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Upload Books -->
+            <div id="upload-books" class="content-section">
+                <div class="card">
+                    <h3>Upload New Book</h3>
+                    <form id="upload-book-form">
+                        <div class="form-group">
+                            <label for="book-title">Book Title</label>
+                            <input type="text" id="book-title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-author">Author</label>
+                            <input type="text" id="book-author" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-year">Year Published</label>
+                            <input type="number" id="book-year" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-genre">Genre</label>
+                            <input type="text" id="book-genre" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-description">Description</label>
+                            <textarea id="book-description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-cover">Book Cover Image</label>
+                            <input type="file" id="book-cover" class="form-control" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Book</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Books -->
+          <div id="view-books" class="content-section">
+    <div class="card">
+        <h3>Book Collection</h3>
+        
+        <!-- Book 1: Educated -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1506026635i/35133922.jpg" alt="Educated" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Educated</h2>
+                <p class="book-author">By Tara Westover</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Memoir</span>
+                    <span class="book-genre">Autobiography</span>
+                    <span class="book-genre">Nonfiction</span>
+                </div>
+                <p class="book-details">
+                    Tara Westover was 17 the first time she set foot in a classroom. Born to survivalists in the mountains of Idaho, 
+                    she prepared for the end of the world by stockpiling home-canned peaches and sleeping with her "head-for-the-hills" bag. 
+                    Her father forbade hospitals, so Tara never saw a doctor or nurse.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 2: The Silent Patient -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://books.google.com.ph/books/publisher/content?id=tLdiDwAAQBAJ&pg=PA1&img=1&zoom=3&hl=en&bul=1&sig=ACfU3U2hh7jzme6lMXTuZJprL4yW78hj_w&w=1280" alt="The Silent Patient" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Silent Patient</h2>
+                <p class="book-author">By Alex Michaelides</p>
+                <p class="book-year">Published: 2019</p>
+                <p class="book-rating">★★★★☆ (4.2/5)</p>
+                <div>
+                    <span class="book-genre">Psychological Thriller</span>
+                    <span class="book-genre">Mystery</span>
+                    <span class="book-genre">Fiction</span>
+                </div>
+                <p class="book-details">
+                    Alicia Berenson's life is seemingly perfect. A famous painter married to an in-demand fashion photographer, 
+                    she lives in a grand house overlooking a park in one of London's most desirable areas. One evening, her 
+                    husband Gabriel returns home late, and Alicia shoots him five times in the face and then never speaks another word.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 3: Atomic Habits -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/51B7kuFwQFL._AC_UF1000,1000_QL80_.jpg" alt="Atomic Habits" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Atomic Habits</h2>
+                <p class="book-author">By James Clear</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.6/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Nonfiction</span>
+                    <span class="book-genre">Psychology</span>
+                </div>
+                <p class="book-details">
+                    No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 4: It Ends with Us -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71EwoNQypZL._AC_UF1000,1000_QL80_.jpg" alt="It Ends with Us" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">It Ends with Us</h2>
+                <p class="book-author">By Colleen Hoover</p>
+                <p class="book-year">Published: 2016</p>
+                <p class="book-rating">★★★★☆ (4.4/5)</p>
+                <div>
+                    <span class="book-genre">Romance</span>
+                    <span class="book-genre">Contemporary</span>
+                    <span class="book-genre">Fiction</span>
+                </div>
+                <p class="book-details">
+                    Lily hasn't always had it easy, but that's never stopped her from working hard for the life she wants. When she feels a spark with a gorgeous neurosurgeon named Ryle Kincaid, everything in Lily's life seems too good to be true. As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan—her first love.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 5: The Midnight Library -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/87/The_Midnight_Library.jpg/250px-The_Midnight_Library.jpg" alt="The Midnight Library" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Midnight Library</h2>
+                <p class="book-author">By Matt Haig</p>
+                <p class="book-year">Published: 2020</p>
+                <p class="book-rating">★★★★☆ (4.0/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Contemporary</span>
+                </div>
+                <p class="book-details">
+                    Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. Nora Seed finds herself faced with this decision: What if she had made different choices? Would she have been happier?
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 6: The Alchemist -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg" alt="The Alchemist" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Alchemist</h2>
+                <p class="book-author">By Paulo Coelho</p>
+                <p class="book-year">Published: 1988</p>
+                <p class="book-rating">★★★★★ (4.5/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Classic</span>
+                </div>
+                <p class="book-details">
+                    The Alchemist follows a young Andalusian shepherd named Santiago who dreams of finding a worldly treasure. His quest will lead him to riches far different—and far more satisfying—than he ever imagined. Santiago's journey teaches us about the essential wisdom of listening to our hearts and following our dreams.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 7: Where the Crawdads Sing -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://historicalnovelsociety.org/wp-content/uploads/2018/10/where-crawdads-sing-delia-owens.jpg" alt="Where the Crawdads Sing" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Where the Crawdads Sing</h2>
+                <p class="book-author">By Delia Owens</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.8/5)</p>
+                <div>
+                    <span class="book-genre">Mystery</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Literary Fiction</span>
+                </div>
+                <p class="book-details">
+                    For years, rumors of the "Marsh Girl" have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, when handsome Chase Andrews is found dead, the locals immediately suspect Kya Clark, the so-called Marsh Girl. But Kya is not what they say. Sensitive and intelligent, she has survived for years alone in the marsh.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 8: The Four Agreements -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630664059i/6596.jpg" alt="The Four Agreements" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Four Agreements</h2>
+                <p class="book-author">By Don Miguel Ruiz</p>
+                <p class="book-year">Published: 1997</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Spirituality</span>
+                    <span class="book-genre">Personal Development</span>
+                </div>
+                <p class="book-details">
+                    Based on ancient Toltec wisdom, The Four Agreements offer a powerful code of conduct that can rapidly transform our lives to a new experience of freedom, true happiness, and love. The Four Agreements are: Be Impeccable With Your Word, Don't Take Anything Personally, Don't Make Assumptions, Always Do Your Best.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 9: The Subtle Art of Not Giving a F*ck -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_UF1000,1000_QL80_.jpg" alt="The Subtle Art of Not Giving a F*ck" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Subtle Art of Not Giving a Fuck</h2>
+                <p class="book-author">By Mark Manson</p>
+                <p class="book-year">Published: 2016</p>
+                <p class="book-rating">★★★★☆ (4.0/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Nonfiction</span>
+                    <span class="book-genre">Psychology</span>
+                </div>
+                <p class="book-details">
+                    In this generation-defining self-help guide, a superstar blogger cuts through the crap to show us how to stop trying to be "positive" all the time so that we can truly become better, happier people. The Subtle Art is a refreshing slap for a generation to help them lead contented, grounded lives.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+
+        <!-- Book 10: The Hobbit -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/710+HcoP38L._AC_UF1000,1000_QL80_.jpg" alt="The Hobbit" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Hobbit</h2>
+                <p class="book-author">By J.R.R. Tolkien</p>
+                <p class="book-year">Published: 1937</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Adventure</span>
+                    <span class="book-genre">Classic</span>
+                </div>
+                <p class="book-details">
+                    Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep to whisk him away on an adventure to reclaim the dwarves' mountain home from the dragon Smaug.
+                </p>
+                <button class="btn btn-primary" style="margin-right: 10px;">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- View Requests -->
+            <div id="view-requests" class="content-section">
+                <div class="card">
+                    <h3>Book Requests</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Student Name</th>
+                                <th>Book Title</th>
+                                <th>Request Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>R1001</td>
+                                <td>Ciro Ezra Dagdag</td>
+                                <td>The Silent Patient</td>
+                                <td>2025-06-9</td>
+                                <td>Pending</td>
+                                <td>
+                                    <button class="btn btn-success">Approve</button>
+                                    <button class="btn btn-danger">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>R1002</td>
+                                <td>Edd Gabriel Badilla</td>
+                                <td>Educated</td>
+                                <td>2025-06-12</td>
+                                <td>Pending</td>
+                                <td>
+                                    <button class="btn btn-success">Approve</button>
+                                    <button class="btn btn-danger">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div id="change-password" class="content-section">
+                <div class="card">
+                    <h3>Change Password</h3>
+                    <form id="change-password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" style="display: none;">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Student Dashboard</h3>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="active" onclick="showSection('student-home')"><i>🏠</i> Home</a>
+                <a href="#" onclick="showSection('search-books')"><i>🔍</i> Search Books</a>
+                <a href="#" onclick="showSection('student-requests')"><i>📖</i> My Requests</a>
+                <a href="#" onclick="showSection('student-change-password')"><i>🔒</i> Change Password</a>
+                <a href="#" onclick="logout()"><i>🚪</i> Logout</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h2>Library Management System</h2>
+                <div class="user-info">
+                    <span>Welcome, Student</span>
+                </div>
+            </div>
+
+            <!-- Student Home -->
+            <div id="student-home" class="content-section active">
+                <div class="card">
+                    <h3>Welcome to Your Library</h3>
+                    <p>Hello! Here you can search for books, request books for borrowing, and manage your account.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 20px;">
+                        <div class="card" style="flex: 1; text-align: center;">
+                            <h4>Books Borrowed</h4>
+                            <p style="font-size: 2rem;">2</p>
+                        </div>
+                        <div class="card" style="flex: 1; text-align: center;">
+                            <h4>Pending Requests</h4>
+                            <p style="font-size: 2rem;">1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Books -->
+            <div id="search-books" class="content-section">
+    <div class="card">
+        <h3>Search Books</h3>
+        <div class="form-group">
+            <input type="text" id="search-input" class="form-control" placeholder="Search by title, author, or genre">
+        </div>
+        
+        <!-- Book 1: The Silent Patient -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1668782119i/40097951.jpg" alt="The Silent Patient" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Silent Patient</h2>
+                <p class="book-author">By Alex Michaelides</p>
+                <p class="book-year">Published: 2019</p>
+                <p class="book-rating">★★★★☆ (4.2/5)</p>
+                <div>
+                    <span class="book-genre">Psychological Thriller</span>
+                    <span class="book-genre">Mystery</span>
+                    <span class="book-genre">Fiction</span>
+                </div>
+                <p class="book-details">
+                    Alicia Berenson's life is seemingly perfect. A famous painter married to an in-demand fashion photographer, 
+                    she lives in a grand house overlooking a park in one of London's most desirable areas.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Silent Patient')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 2: Educated -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1506026635i/35133922.jpg" alt="Educated" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Educated</h2>
+                <p class="book-author">By Tara Westover</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Memoir</span>
+                    <span class="book-genre">Autobiography</span>
+                    <span class="book-genre">Nonfiction</span>
+                </div>
+                <p class="book-details">
+                    Tara Westover was 17 the first time she set foot in a classroom. Born to survivalists in the mountains of Idaho, 
+                    she prepared for the end of the world by stockpiling home-canned peaches and sleeping with her "head-for-the-hills" bag.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('Educated')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 3: Atomic Habits -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/51B7kuFwQFL._AC_UF1000,1000_QL80_.jpg" alt="Atomic Habits" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Atomic Habits</h2>
+                <p class="book-author">By James Clear</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.6/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Nonfiction</span>
+                    <span class="book-genre">Psychology</span>
+                </div>
+                <p class="book-details">
+                    No matter your goals, Atomic Habits offers a proven framework for improving every day. Learn how to form good habits, break bad ones, and master tiny behaviors.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('Atomic Habits')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 4: It Ends with Us -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71EwoNQypZL._AC_UF1000,1000_QL80_.jpg" alt="It Ends with Us" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">It Ends with Us</h2>
+                <p class="book-author">By Colleen Hoover</p>
+                <p class="book-year">Published: 2016</p>
+                <p class="book-rating">★★★★☆ (4.4/5)</p>
+                <div>
+                    <span class="book-genre">Romance</span>
+                    <span class="book-genre">Contemporary</span>
+                    <span class="book-genre">Fiction</span>
+                </div>
+                <p class="book-details">
+                    Lily hasn't always had it easy, but that's never stopped her from working hard for the life she wants. When she feels a spark with a gorgeous neurosurgeon.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('It Ends with Us')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 5: The Midnight Library -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/87/The_Midnight_Library.jpg/250px-The_Midnight_Library.jpg" alt="The Midnight Library" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Midnight Library</h2>
+                <p class="book-author">By Matt Haig</p>
+                <p class="book-year">Published: 2020</p>
+                <p class="book-rating">★★★★☆ (4.0/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Contemporary</span>
+                </div>
+                <p class="book-details">
+                    Between life and death there is a library where every book provides a chance to try another life you could have lived.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Midnight Library')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 6: The Alchemist -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg" alt="The Alchemist" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Alchemist</h2>
+                <p class="book-author">By Paulo Coelho</p>
+                <p class="book-year">Published: 1988</p>
+                <p class="book-rating">★★★★★ (4.5/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Classic</span>
+                </div>
+                <p class="book-details">
+                    The Alchemist follows a young shepherd who dreams of finding a worldly treasure. His quest leads him to riches far different than he imagined.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Alchemist')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 7: Where the Crawdads Sing -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Where_The_Crawdads_Sing_Book_Cover.jpg/250px-Where_The_Crawdads_Sing_Book_Cover.jpg" alt="Where the Crawdads Sing" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">Where the Crawdads Sing</h2>
+                <p class="book-author">By Delia Owens</p>
+                <p class="book-year">Published: 2018</p>
+                <p class="book-rating">★★★★★ (4.8/5)</p>
+                <div>
+                    <span class="book-genre">Mystery</span>
+                    <span class="book-genre">Fiction</span>
+                    <span class="book-genre">Literary Fiction</span>
+                </div>
+                <p class="book-details">
+                    For years, rumors of the "Marsh Girl" have haunted Barkley Cove. When Chase Andrews is found dead, the locals suspect Kya Clark.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('Where the Crawdads Sing')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 8: The Four Agreements -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630664059i/6596.jpg" alt="The Four Agreements" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Four Agreements</h2>
+                <p class="book-author">By Don Miguel Ruiz</p>
+                <p class="book-year">Published: 1997</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Spirituality</span>
+                    <span class="book-genre">Personal Development</span>
+                </div>
+                <p class="book-details">
+                    Based on ancient Toltec wisdom: Be Impeccable With Your Word, Don't Take Anything Personally, Don't Make Assumptions, Always Do Your Best.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Four Agreements')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 9: The Subtle Art of Not Giving a F*ck -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_UF1000,1000_QL80_.jpg" alt="The Subtle Art of Not Giving a F*ck" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Subtle Art of Not Giving a F*ck</h2>
+                <p class="book-author">By Mark Manson</p>
+                <p class="book-year">Published: 2016</p>
+                <p class="book-rating">★★★★☆ (4.0/5)</p>
+                <div>
+                    <span class="book-genre">Self-help</span>
+                    <span class="book-genre">Nonfiction</span>
+                    <span class="book-genre">Psychology</span>
+                </div>
+                <p class="book-details">
+                    This guide shows us how to stop trying to be "positive" all the time so that we can truly become better, happier people.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Subtle Art of Not Giving a F*ck')">Request Book</button>
+            </div>
+        </div>
+
+        <!-- Book 10: The Hobbit -->
+        <div class="book-card">
+            <div class="book-image-container">
+                <img src="https://m.media-amazon.com/images/I/710+HcoP38L._AC_UF1000,1000_QL80_.jpg" alt="The Hobbit" class="book-image">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">The Hobbit</h2>
+                <p class="book-author">By J.R.R. Tolkien</p>
+                <p class="book-year">Published: 1937</p>
+                <p class="book-rating">★★★★★ (4.7/5)</p>
+                <div>
+                    <span class="book-genre">Fantasy</span>
+                    <span class="book-genre">Adventure</span>
+                    <span class="book-genre">Classic</span>
+                </div>
+                <p class="book-details">
+                    Bilbo Baggins is a hobbit who enjoys a comfortable life until the wizard Gandalf and a company of dwarves arrive.
+                </p>
+                <button class="btn btn-primary" onclick="requestBook('The Hobbit')">Request Book</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Student Requests -->
+            <div id="student-requests" class="content-section">
+                <div class="card">
+                    <h3>My Book Requests</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Book Title</th>
+                                <th>Request Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>R1001</td>
+                                <td>The Silent Patient</td>
+                                <td>2025-06-12</td>
+                                <td>Pending</td>
+                            </tr>
+                            <tr>
+                                <td>R1002</td>
+                                <td>Educated</td>
+                                <td>2025-06-12</td>
+                                <td>Approved</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div id="student-change-password" class="content-section">
+                <div class="card">
+                    <h3>Change Password</h3>
+                    <form id="student-change-password-form">
+                        <div class="form-group">
+                            <label for="student-current-password">Current Password</label>
+                            <input type="password" id="student-current-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-new-password">New Password</label>
+                            <input type="password" id="student-new-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-confirm-password">Confirm New Password</label>
+                            <input type="password" id="student-confirm-password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page">
+        <div class="container">
+            <div class="welcome">
+                <h1>Welcome to Our Library</h1>
+                <p>Access thousands of books, journals, and digital resources. Manage your account and explore our collection.</p>
+                <p>Students: Login to check out books and view your reading history.</p>
+                <p>Administrators: Use the admin login to manage the library system.</p>
+            </div>
+
+            <div class="login-box">
+                <div class="tabs">
+                    <div class="tab active" onclick="showForm('student-login')">Student Login</div>
+                    <div class="tab" onclick="showForm('admin-login')">Admin Login</div>
+                    <div class="tab" onclick="showForm('register')">Register</div>
+                </div>
+
+                <!-- Student Login -->
+                <div id="student-login" class="form active">
+                    <h2>Student Login</h2>
+                    <form onsubmit="studentLogin(event)">
+                        <div class="input-group">
+                            <label for="student-email">Email</label>
+                            <input type="email" id="student-email" placeholder="Enter your student email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="student-password">Password</label>
+                            <input type="password" id="student-password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p class="form-footer">New student? <a href="#" onclick="showForm('register')">Create an account</a></p>
+                </div>
+
+                <!-- Admin Login -->
+                <div id="admin-login" class="form">
+                    <h2>Admin Login</h2>
+                    <form onsubmit="adminLogin(event)">
+                        <div class="input-group">
+                            <label for="admin-username">Username</label>
+                            <input type="text" id="admin-username" placeholder="Enter admin username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="admin-password">Password</label>
+                            <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+
+                <!-- Registration -->
+                <div id="register" class="form">
+                    <h2>Student Registration</h2>
+                    <form>
+                        <div class="input-group">
+                            <label for="reg-name">Full Name</label>
+                            <input type="text" id="reg-name" placeholder="Your full name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" placeholder="Your email address" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-id">Student ID</label>
+                            <input type="text" id="reg-id" placeholder="University student ID" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" placeholder="Create a password (min 8 characters)" required>
+                        </div>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p class="form-footer">Already have an account? <a href="#" onclick="showForm('student-login')">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show different forms in login page
+        function showForm(formId) {
+            // Hide all forms
+            document.querySelectorAll('.form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Show selected form
+            document.getElementById(formId).classList.add('active');
+            
+            // Update tab styling
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Highlight clicked tab
+            event.currentTarget.classList.add('active');
+        }
+
+        // Show different sections in dashboard
+        function showSection(sectionId) {
+            // Get the current dashboard (admin or student)
+            const dashboard = document.querySelector('#admin-dashboard').style.display === 'block' ? 
+                            document.querySelector('#admin-dashboard') : 
+                            document.querySelector('#student-dashboard');
+            
+            // Hide all sections in this dashboard
+            dashboard.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update menu item styling
+            const menuItems = dashboard.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the clicked menu item
+            const clickedItem = Array.from(menuItems).find(item => 
+                item.getAttribute('onclick').includes(sectionId)
+            );
+            if (clickedItem) {
+                clickedItem.classList.add('active');
+            }
+        }
+
+        // Admin login function
+        function adminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            // Check credentials (admin/admin123)
+            if (username === 'admin' && password === 'admin123') {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                document.body.classList.add('dashboard-body');
+            } else {
+                alert('Invalid admin credentials. Username: admin, Password: admin123');
+            }
+        }
+
+        // Student login function
+        function studentLogin(event) {
+            event.preventDefault();
+            // For demo purposes, any student login will work
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'block';
+            document.body.classList.add('dashboard-body');
+        }
+
+        // Logout function
+        function logout() {
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+            document.getElementById('login-page').style.display = 'block';
+            document.body.classList.remove('dashboard-body');
+        }
+
+        // Request book function
+        function requestBook(bookTitle) {
+            alert(`Request submitted for: ${bookTitle}\nThis request will appear in your "My Requests" section and in the admin panel.`);
+            // In a real app, you would send this to the server
+        }
+
+        // Initialize the page to show login
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('login-page').style.display = 'block';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
